@@ -2,6 +2,9 @@ const padding = 50;
 const dotRadius = 5;
 const maxHeight = 500;
 const maxWidth = 200;
+const IMAGE_PATH = "./images/";
+
+var MAX_SCALE = 1;
 
 const startDate = new Date("12/28/2017");
 var today = new Date();
@@ -31,33 +34,11 @@ var visibleWidth = canvas.width;
 var visibleHeight = canvas.height;
 
 var nodes = [];
-/*
-var start = {
-	xpos : 0,
-	vis : 1,
-	img : "testimage.jpg"
-};
-var middle = {
-	xpos : .5,
-	vis : 1.5,
-	img : "testimage.jpg"
-};
-var end = {
-	xpos : 1,
-	vis : 1,
-	img : "testimage.jpg"
-};
-nodes.push(start);
-nodes.push(middle);
-nodes.push(end);*/
 
 $(document).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "data.txt",
-        dataType: "text",
-        success: function(data) {parseCSV(data);}
-     });
+	$.get("data.csv", function(data) {
+		parseCSV(data);
+	});
 });
 
 function parseCSV(txt) {
@@ -76,11 +57,14 @@ function parseCSV(txt) {
 	
 	data.forEach(function (item, index) {
 		var eventDate = new Date(item[1]);
-		var xval = Math.abs(eventDate - startDate)/Math.abs(today - startDate);
+		var xpos = Math.abs(eventDate - startDate)/Math.abs(today - startDate);
+		var vis = Number(item[0]);
+		
+		MAX_SCALE = Math.max(MAX_SCALE, vis);
 		
 		nodes.push({
-			xpos : xval,
-			vis : Number(item[0]),
+			xpos : xpos,
+			vis : vis,
 			img : item[2]
 		});
 	});
@@ -110,7 +94,7 @@ function draw(){
 			context.stroke();
 			
 			var img = new Image();
-			img.src = "./" + item.img;
+			img.src = IMAGE_PATH + item.img;
 			
 			var imgWidth = img.width;
 			var imgHeight = img.height;
@@ -135,17 +119,17 @@ canvas.onwheel = function (event){
     // Compute zoom factor.
     var zoom = Math.exp(wheel*zoomIntensity);
 	if(zoom*scale < 1) {
-		if(scale == 1)
-			return;
-		else {
-			scale = 1;
-			originx = 0;
-			originy = 0;
-			visibleWidth = canvas.width;
-			visibleHeight = canvas.height;
-			context.setTransform(1, 0, 0, 1, 0, 0);
-			return;
-		}
+		scale = 1;
+		originx = 0;
+		originy = 0;
+		visibleWidth = canvas.width;
+		visibleHeight = canvas.height;
+		context.resetTransform();
+		updateDate();
+		return;
+	}
+	if(zoom*scale > MAX_SCALE) {
+		zoom = MAX_SCALE/scale;
 	}
     
     // Translate so the visible origin is at the context's origin.
@@ -173,10 +157,29 @@ canvas.onwheel = function (event){
 	updateDate();
 }
 
-Date.prototype.addDays = function(days) {
-	var date = new Date(this.valueOf());
-	date.setDate(date.getDate() + days);
-	return date;
+var dragging = false;
+var lastPos = 0;
+canvas.onmousedown = function(event) {
+	dragging = true;
+	lastPos = event.clientX - canvas.offsetLeft;
+}
+canvas.onmouseup = function(event) {
+	dragging = false;
+}
+canvas.onmouseout = function(event) {
+	dragging = false;
+}
+canvas.onmousemove = function(event) {
+	if(dragging) {
+		var delta = event.clientX - canvas.offsetLeft - lastPos;
+		delta /= scale;
+		lastPos = event.clientX - canvas.offsetLeft;
+		if(originx - delta < 0 || originx + visibleWidth - delta > canvas.width)
+			return;
+		originx -= delta;
+		context.translate(delta, 0);
+		updateDate();
+	}
 }
 
 function formatDate(date) {
@@ -196,7 +199,6 @@ function formatDate(date) {
 
 function updateDate() {
 	var percent = (originx + visibleWidth/2 - padding)/(canvas.width - 2*padding);
-	console.log(Math.abs(today - startDate) * percent);
 	var dateStr = formatDate(new Date(startDate.getTime() + Math.abs(today - startDate) * percent));
 	document.getElementById("currDate").innerHTML = dateStr;
 }

@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<script src="jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="create-event.css">
 	</head>
 	<body>
 		<div id="overlay">
@@ -15,5 +16,35 @@
 		<div id="images">
 		</div>
 		<script src="timeline.js"></script>
+		
+		<button class="open-button" onclick="openForm()">Create Event</button>
+		
+		<div class="form-popup" id="create-event">
+			<form action="/save-event.php" class="form-container" method="POST">
+				<h1>New Event</h1>
+
+				<label for="date"><b>Date</b></label>
+				<input type="date" placeholder="Enter Date" name="date" required>
+				
+				<label for="importance"><b>Importance (>= 1)</b></label>
+				<input type="number" value="1" min="1" name="importance" required>
+				
+				<label for="image"><b>Image</b></label>
+				<input type="file" name="image" multiple accept="image/*" required>
+				
+				<button type="submit" class="btn">Create</button>
+				<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+			</form>
+		</div>
+		
+		<script>
+			function openForm() {
+				document.getElementById("create-event").style.display = "block";
+			}
+
+			function closeForm() {
+				document.getElementById("create-event").style.display = "none";
+			}
+		</script>
 	</body>
 </html>
