@@ -35,43 +35,18 @@ var visibleHeight = canvas.height;
 
 var nodes = [];
 
-$(document).ready(function() {
-	$.get("data.csv", function(data) {
-		parseCSV(data);
-	});
-});
+handleData();
 
-function parseCSV(txt) {
-	
-	var data = [];
-
-    // split by line breaks
-    var rows = txt.split("\r\n");
-
-    for(var i=1; i < rows.length; i++) {
-    	// split each row by comma
-    	var row_columns = rows[i].split(",");
-
-    	data.push(row_columns);
-	}
-	
+function handleData() {
 	data.forEach(function (item, index) {
-		var eventDate = new Date(item[1]);
-		var xpos = Math.abs(eventDate - startDate)/Math.abs(today - startDate);
-		var vis = Number(item[0]);
+		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
 		
-		MAX_SCALE = Math.max(MAX_SCALE, vis);
-		
-		nodes.push({
-			xpos : xpos,
-			vis : vis,
-			img : item[2]
-		});
+		nodes.push(new Event(new Date(item.date), Number(item.importance), item.images, startDate));
 	});
 }
 
 
-function draw(){
+function draw() {
     // Clear screen to white.
     context.fillStyle = "white";
     context.fillRect(originx, originy, canvas.width/scale, canvas.height/scale);
@@ -86,19 +61,18 @@ function draw(){
 	context.stroke();
 	
 	nodes.forEach(function (item, index) {
-		var abspos = padding + item.xpos * (canvas.width - 2*padding);
+		var abspos = padding + item.position * (canvas.width - 2*padding);
 		if(abspos >= originx && abspos <= originx + visibleWidth) {
 			context.beginPath();
-			context.arc(abspos, canvas.height/2, dotRadius/scale * Math.min(1, scale/item.vis), 0, 2 * Math.PI, false);
+			context.arc(abspos, canvas.height/2, dotRadius/scale * Math.min(1, scale/item.importance), 0, 2 * Math.PI, false);
 			context.fill();
 			context.stroke();
 			
-			var img = new Image();
-			img.src = IMAGE_PATH + item.img;
+			var img = item.getImage();
 			
 			var imgWidth = img.width;
 			var imgHeight = img.height;
-			var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.vis) / scale;
+			var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
 			imgWidth *= imgScale;
 			imgHeight *= imgScale;
 			context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
@@ -108,7 +82,7 @@ function draw(){
 // Draw loop at 60FPS.
 setInterval(draw, 1000/60);
 
-canvas.onwheel = function (event){
+canvas.onwheel = function (event) {
     event.preventDefault();
     // Get mouse offset.
     var mousex = event.clientX - canvas.offsetLeft;
