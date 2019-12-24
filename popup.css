@@ -1,16 +1,97 @@
-.popup-container {
-	position:fixed;
-	left:0;
-	right:0;
+* {
+	box-sizing: border-box;
+}
+
+.row > .column {
+	padding: 0 8px;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.column {
+	float: left;
+	width: 25%;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 3;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.75);
+	
+	color: white;
+}
+
+/* Modal Content */
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
 	margin: auto;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	width: auto;
+	padding: 0;
+	width: 90%;
+	max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+	color: white;
+	position: absolute;
+	top: 10px;
+	right: 25px;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #999;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.cursor {
+	cursor: pointer;
+}
+
+.modal-content img {
+	margin-bottom: -4px;
+}
+#modal-slides img {
+	max-width: 700px;
+	max-height: 400px;
+}
+
+div.gallery {
+	margin: 5px;
+	border: 1px solid #ccc;
+	float: left;
+	width: 180px;
+	
+	background: white;
+	color: black;
+}
+
+div.gallery:hover {
+	border: 1px solid #777;
+}
+
+div.gallery img {
+	width: 100%;
 	height: auto;
+}
+
+div.desc {
 	padding: 15px;
 	text-align: center;
-	box-sizing: content-box;
-	z-index: 11;
 }

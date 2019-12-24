@@ -67,7 +67,21 @@
 		</script>
 		
 		
-		<div class="popup" id="event-display" style="display:none;">
+		<div id="myModal" class="modal">
+			<h1 id="modal-date" align="center"></h1>
+			<span class="close cursor" onclick="closeModal()">&times;</span>
+			<div class="modal-content" id="modal-content">
+			</div>
 		</div>
+		<script>
+			function openModal() {
+				document.getElementById("myModal").style.display = "block";
+			}
+
+			function closeModal() {
+				document.getElementById("myModal").style.display = "none";
+			}
+		</script>
+		
 	</body>
 </html>
