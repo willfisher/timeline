@@ -6,6 +6,7 @@
 		<script src="Event.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="create-event.css">
+		<link rel="stylesheet" type="text/css" href="popup.css">
 	</head>
 	<body>
 		<?php
@@ -64,5 +65,9 @@
 				document.getElementById("create-event").style.display = "none";
 			}
 		</script>
+		
+		
+		<div class="popup" id="event-display" style="display:none;">
+		</div>
 	</body>
 </html>

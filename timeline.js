@@ -60,7 +60,7 @@ function draw() {
 	context.lineTo(canvas.width - padding, canvas.height/2);
 	context.stroke();
 	
-	nodes.forEach(function (item, index) {
+	nodes.forEach(function(item, index) {
 		var abspos = padding + item.position * (canvas.width - 2*padding);
 		if(abspos >= originx && abspos <= originx + visibleWidth) {
 			context.beginPath();
@@ -81,6 +81,37 @@ function draw() {
 }
 // Draw loop at 60FPS.
 setInterval(draw, 1000/60);
+
+canvas.onclick = function(event) {
+    var mousePos = {
+		x: originx + (event.clientX - canvas.offsetLeft)/canvas.width*visibleWidth,
+		y: originy + (event.clientY - canvas.offsetTop)/canvas.height*visibleHeight
+    };
+	
+    nodes.forEach(function(item, index) {
+		var abspos = padding + item.position * (canvas.width - 2*padding);
+		var img = item.getImage();
+		
+		var imgWidth = img.width;
+		var imgHeight = img.height;
+		var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance)/ scale;
+		imgWidth *= imgScale;
+		imgHeight *= imgScale;
+		
+		if(isInside(mousePos, {
+			x: abspos - imgWidth/2,
+			y: canvas.height/2 - 20/scale - imgHeight,
+			width: imgWidth,
+			height: imgHeight
+		})) {
+			item.display();
+		}
+	});
+}
+function isInside(pos, rect){
+	return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y;
+}
+
 
 canvas.onwheel = function (event) {
     event.preventDefault();
@@ -108,7 +139,9 @@ canvas.onwheel = function (event) {
     
     // Translate so the visible origin is at the context's origin.
     context.translate(originx, originy);
-  
+	
+	var oldX = originx*scale;
+	
     // Compute the new visible origin. Originally the mouse is at a
     // distance mouse/scale from the corner, we want the point under
     // the mouse to remain in the same place after the zoom, but this
@@ -147,9 +180,9 @@ canvas.onmousemove = function(event) {
 	if(dragging) {
 		var delta = event.clientX - canvas.offsetLeft - lastPos;
 		delta /= scale;
-		lastPos = event.clientX - canvas.offsetLeft;
 		if(originx - delta < 0 || originx + visibleWidth - delta > canvas.width)
 			return;
+		lastPos = event.clientX - canvas.offsetLeft;
 		originx -= delta;
 		context.translate(delta, 0);
 		updateDate();

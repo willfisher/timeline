@@ -1,0 +1,16 @@
+.popup-container {
+	position:fixed;
+	left:0;
+	right:0;
+	margin: auto;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: auto;
+	height: auto;
+	padding: 15px;
+	text-align: center;
+	box-sizing: content-box;
+	z-index: 11;
+}
