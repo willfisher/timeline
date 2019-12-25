@@ -46,5 +46,5 @@
 	}
 	
 	// Return to homepage
-	header('location:timeline.php');
+	header('location:index.php');
 ?>
