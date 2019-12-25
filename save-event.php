@@ -35,7 +35,7 @@
 	
 	// Publish row to SQL database
 	$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images, captions)
-		values(?, ?, ?, ?, ?)");
+		values(?, ?, ?, ?, ?);");
 	$stmt->bind_param("ssiss", $date, $desc, $vis, implode(',', array_filter($fileNames)), implode(',', array_filter($captions)));
 	$stmt->execute();
 	$stmt->close();
