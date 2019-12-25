@@ -1,7 +1,7 @@
 const padding = 50;
 const dotRadius = 5;
-const maxHeight = 500;
-const maxWidth = 200;
+var maxHeight = window.innerHeight/2 - 50;
+var maxWidth = window.innerWidth/10;
 const IMAGE_PATH = "./images/";
 
 var MAX_SCALE = 1;
@@ -18,8 +18,10 @@ var context = canvas.getContext("2d");
 window.addEventListener('resize', resizeCanvas, false);
 
 function resizeCanvas() {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	maxHeight = canvas.height/2 - 50;
+	maxWidth = canvas.width/10;
 }
 resizeCanvas();
 
