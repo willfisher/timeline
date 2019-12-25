@@ -4,38 +4,37 @@
 	$desc = $_POST['description'];
 	
 	$fileNames = array();
+	$captions = array();
 	
-	// Upload image
-	if(isset($_FILES['image'])){
+	// Upload images
+	for($i=1; isset($_FILES['image-'.$i]); $i++) {
 		$errors= array();
-		
-		$fileCount = count($_FILES['image']);
-		for ($i = 0; $i < $fileCount; $i++) {
-			$file_name = $_FILES['image']['name'][$i];
-			$file_size = $_FILES['image']['size'][$i];
-			$file_tmp = $_FILES['image']['tmp_name'][$i];
-			$file_type = $_FILES['image']['type'][$i];
-			$file_ext = strtolower(end(explode('.', $_FILES['image']['name'][$i])));
+	
+		$file_name = $_FILES['image-'.$i]['name'];
+		$file_size = $_FILES['image-'.$i]['size'];
+		$file_tmp = $_FILES['image-'.$i]['tmp_name'];
+		$file_type = $_FILES['image-'.$i]['type'];
+		$file_ext = strtolower(end(explode('.', $_FILES['image-'.$i]['name'])));
 
-			$extensions = array("jpeg", "jpg", "png");
+		$extensions = array("jpeg", "jpg", "png");
 
-			if(in_array($file_ext, $extensions) === false) {
-				$errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
-			}
-
-			if($file_size > 2097152) {
-				$errors[] = 'File size must be under 2 MB';
-			}
-
-			if(empty($errors) == true) {
-				move_uploaded_file($file_tmp, "images/".$file_name);
-				echo "Success";
-			} else {
-				print_r($errors);
-			}
-			
-			array_push($fileNames, $file_name);
+		if(in_array($file_ext, $extensions) === false) {
+			$errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
 		}
+
+		if($file_size > 2097152) {
+			$errors[] = 'File size must be under 2 MB';
+		}
+
+		if(empty($errors) == true) {
+			move_uploaded_file($file_tmp, "images/".$file_name);
+			echo "Success";
+		} else {
+			print_r($errors);
+		}
+		
+		array_push($fileNames, $file_name);
+		array_push($captions, $_POST['caption-'.$i]);
 	}
 	
 	// Publish row to SQL database
@@ -44,9 +43,9 @@
 		die('Connection Failed : ' . $conn->connect_error);
 	} else {
 		echo 'creating row';
-		$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images)
-			values(?, ?, ?, ?)");
-		$stmt->bind_param("ssis", $date, $desc, $vis, implode(',', array_filter($fileNames)));
+		$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images, captions)
+			values(?, ?, ?, ?, ?)");
+		$stmt->bind_param("ssiss", $date, $desc, $vis, implode(',', array_filter($fileNames)), implode(',', array_filter($captions)));
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();

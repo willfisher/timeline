@@ -1,9 +1,13 @@
 * { margin:0; padding:0; } /* to remove the top and left whitespace */
 
-html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+html, body { width:100%; height:100%; font-family: 'Open Sans', sans-serif; } /* just to be sure these are full screen*/
 
 canvas { display:block; } /* To remove the scrollbars */
 
+
+body h1 {
+	font-family: 'Roboto', sans-serif;
+}
 
 #overlay {
 	position: fixed; /* Sit on top of the page content */
@@ -15,6 +19,8 @@ canvas { display:block; } /* To remove the scrollbars */
 	bottom: 0;
 	background-color: rgba(0,0,0,0.5); /* Black background with opacity */
 	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+	
+	font-family: 'Roboto', sans-serif;
 }
 
 #overlay-item {

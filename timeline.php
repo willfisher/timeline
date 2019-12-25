@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="create-event.css">
 		<link rel="stylesheet" type="text/css" href="popup.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<?php
@@ -41,7 +42,7 @@
 		
 		<div class="form-popup" id="create-event">
 			<form action="/save-event.php" class="form-container" method="POST" enctype="multipart/form-data">
-				<h1>New Event</h1>
+				<h1 align="center">New Event</h1>
 
 				<label for="date"><b>Date</b></label>
 				<input type="date" placeholder="Enter Date" name="date" required>
@@ -49,23 +50,43 @@
 				<label for="description"><b>Description</b></label>
 				<input type="text" placeholder="Description..." name="description" maxlength="2000">
 				
-				<label for="importance"><b>Importance (>= 1)</b></label>
+				<label for="importance"><b>Importance</b></label>
 				<input type="number" value="1" min="1" name="importance" required>
 				
-				<label for="image"><b>Image</b></label>
-				<input type="file" name="image[]" multiple accept="image/*" required>
+				<label for="image"><b>Images</b></label>
+				<div id="image-uploads">
+					<input type="file" name="image-1" accept="image/*" required>
+					<input type="text" name="caption-1" placeholder="Caption..." maxlength="100" required>
+				</div>
+				
+				<div>
+					<button type="button" class="img-btn" onclick="addUpload();">+</button>
+					<button type="button" class="img-btn" onclick="resetUploads();">Reset</button>
+				</div>
 				
 				<button type="submit" name="submit" class="btn">Add</button>
 				<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 			</form>
 		</div>
 		<script>
+			var uploadCount = 1;
 			function openForm() {
 				document.getElementById("create-event").style.display = "block";
 			}
 
 			function closeForm() {
 				document.getElementById("create-event").style.display = "none";
+			}
+			
+			function addUpload() {
+				uploadCount++;
+				document.getElementById("image-uploads").innerHTML += '<input type="file" name="image-' + uploadCount + '" accept="image/*" required>' + '\n' +
+					'<input type="text" name="caption-' + uploadCount + '" placeholder="Caption..." maxlength="100" required>';
+			}
+			function resetUploads() {
+				uploadCount = 0;
+				document.getElementById("image-uploads").innerHTML = '';
+				addUpload();
 			}
 		</script>
 		
