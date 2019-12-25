@@ -67,10 +67,6 @@
 .modal-content img {
 	margin-bottom: -4px;
 }
-#modal-slides img {
-	max-width: 700px;
-	max-height: 400px;
-}
 
 div.gallery {
 	margin: 5px;
@@ -87,6 +83,10 @@ div.gallery:hover {
 }
 
 div.gallery img {
+	width: 100%;
+	height: auto;
+}
+div.gallery video {
 	width: 100%;
 	height: auto;
 }

@@ -55,7 +55,7 @@
 				
 				<label for="image"><b>Images</b></label>
 				<div id="image-uploads">
-					<input type="file" name="image-1" accept="image/*" required>
+					<input type="file" name="image-1" accept="image/*, video/*" required>
 					<input type="text" name="caption-1" placeholder="Caption..." maxlength="100" required>
 				</div>
 				
@@ -80,7 +80,7 @@
 			
 			function addUpload() {
 				uploadCount++;
-				document.getElementById("image-uploads").innerHTML += '<input type="file" name="image-' + uploadCount + '" accept="image/*" required>' + '\n' +
+				document.getElementById("image-uploads").innerHTML += '<input type="file" name="image-' + uploadCount + '" accept="image/*, video/*" required>' + '\n' +
 					'<input type="text" name="caption-' + uploadCount + '" placeholder="Caption..." maxlength="100" required>';
 			}
 			function resetUploads() {

@@ -19,6 +19,7 @@ class Event {
 	}
 	
 	display() {
+		var imgExtensions = ['png', 'jpeg', 'jpg', 'gif'];
 		var modal = document.getElementById("modal-content");
 		
 		modal.innerHTML = '';
@@ -27,12 +28,23 @@ class Event {
 		var imageCaptions = this.captions.split(',');
 		var i;
 		for(i = 0; i < imageNames.length; i++) {
-			modal.innerHTML += '<div class="gallery">' + '\n' +
-					'<a target="_blank" href="' + './images/' + imageNames[i] + '">' + '\n' +
-					'<img src="' + './images/' + imageNames[i] + '" alt="Cinque Terre" width="600" height="400">' + '\n' +
-					'</a>' + '\n' +
-					'<div class="desc">' + imageCaptions[i] + '</div>' + '\n' +
-					'</div>';
+			if(imgExtensions.includes(imageNames[i].split('.')[imageNames[i].split('.').length - 1].toLowerCase())) {
+				modal.innerHTML += '<div class="gallery">' + '\n' +
+						'<a target="_blank" href="' + './images/' + imageNames[i] + '">' + '\n' +
+						'<img src="' + './images/' + imageNames[i] + '" alt="Cinque Terre" width="600" height="400">' + '\n' +
+						'</a>' + '\n' +
+						'<div class="desc">' + imageCaptions[i] + '</div>' + '\n' +
+						'</div>';
+			} else {
+				modal.innerHTML += '<div class="gallery">' + '\n' +
+						'<a target="_blank" href="' + './images/' + imageNames[i] + '">' + '\n' +
+						'<video autoplay loop muted width="600" height="400">' + '\n' +
+						'<source src="' + './images/' + imageNames[i] + '" type="video/mp4">' + '\n' +
+						'</video>' + '\n' +
+						'</a>' + '\n' +
+						'<div class="desc">' + imageCaptions[i] + '</div>' + '\n' +
+						'</div>';
+			}
 		}
 		
 		var modalDate = document.getElementById("modal-date");

@@ -43,7 +43,8 @@ function handleData() {
 	data.forEach(function (item, index) {
 		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
 		
-		nodes.push(new Event(new Date(item.date), item.description, Number(item.importance), item.images, item.captions, startDate));
+		var parts = item.date.split('-');
+		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
 	});
 }
 

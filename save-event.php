@@ -16,12 +16,6 @@
 		$file_type = $_FILES['image-'.$i]['type'];
 		$file_ext = strtolower(end(explode('.', $_FILES['image-'.$i]['name'])));
 
-		$extensions = array("jpeg", "jpg", "png");
-
-		if(in_array($file_ext, $extensions) === false) {
-			$errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
-		}
-
 		if($file_size > 2097152) {
 			$errors[] = 'File size must be under 2 MB';
 		}
