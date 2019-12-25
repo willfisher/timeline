@@ -18,6 +18,12 @@ class Event {
 		return img;
 	}
 	
+	isImage() {
+		var imgExtensions = ['png', 'jpeg', 'jpg', 'gif'];
+		var firstName = this.imageStr.split(',')[0];
+		return imgExtensions.includes(firstName.split('.')[firstName.split('.').length - 1].toLowerCase());
+	}
+	
 	display() {
 		var imgExtensions = ['png', 'jpeg', 'jpg', 'gif'];
 		var modal = document.getElementById("modal-content");

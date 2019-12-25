@@ -71,10 +71,23 @@ function draw() {
 			context.fill();
 			context.stroke();
 			
-			var img = item.getImage();
+			if(item.isImage()) {
+				var img = item.getImage();
+				
+				var imgWidth = img.width;
+				var imgHeight = img.height;
+			} else {
+				var img = document.getElementById(item.imageStr.split(',')[0]);
+				
+				if(img == null) {
+					createThumbnail(item.imageStr.split(',')[0]);
+					img = document.getElementById(item.imageStr.split(',')[0]);
+				}
+				
+				var imgWidth = img.clientWidth;
+				var imgHeight = img.clientHeight;
+			}
 			
-			var imgWidth = img.width;
-			var imgHeight = img.height;
 			var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
 			imgWidth *= imgScale;
 			imgHeight *= imgScale;
@@ -93,10 +106,22 @@ canvas.onclick = function(event) {
 	
     nodes.forEach(function(item, index) {
 		var abspos = padding + item.position * (canvas.width - 2*padding);
-		var img = item.getImage();
-		
-		var imgWidth = img.width;
-		var imgHeight = img.height;
+		if(item.isImage()) {
+			var img = item.getImage();
+			
+			var imgWidth = img.width;
+			var imgHeight = img.height;
+		} else {
+			var img = document.getElementById(item.imageStr.split(',')[0]);
+			
+			if(img == null) {
+				createThumbnail(item.imageStr.split(',')[0]);
+				img = document.getElementById(item.imageStr.split(',')[0]);
+			}
+			
+			var imgWidth = img.clientWidth;
+			var imgHeight = img.clientHeight;
+		}
 		var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance)/ scale;
 		imgWidth *= imgScale;
 		imgHeight *= imgScale;
@@ -213,3 +238,22 @@ function updateDate() {
 	document.getElementById("currDate").innerHTML = dateStr;
 }
 updateDate();
+
+function createThumbnail(imageSrc) {
+	var img = document.createElement("IMG");
+	img.style.visibility = "hidden";
+	img.id = imageSrc;
+	document.body.appendChild(img);
+	document.getElementById("thumbnail").src = './images/' + imageSrc;
+	var fg = new FrameGrab({
+		video: document.getElementById("thumbnail")
+	});
+	fg.grab(img, 0).then(
+		function success(img) {
+			console.log("Frame rendered successfully!");
+		},
+		function failure(reason) {
+			console.error("Problem rendering frame! " + reason);
+		}
+	);
+}

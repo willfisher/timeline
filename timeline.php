@@ -8,6 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="create-event.css">
 		<link rel="stylesheet" type="text/css" href="popup.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+		
+		<script src="lib/rsvp.js"></script>
+		<script src="frame-grab.js"></script>
 	</head>
 	<body>
 		<?php
@@ -110,5 +113,8 @@
 			}
 		</script>
 		
+		
+		<video hidden id="thumbnail" preload="metadata">
+		</video>
 	</body>
 </html>
