@@ -30,7 +30,7 @@
 }
 
 /* Full-width input fields */
-.form-container input[type=number], .form-container input[type=date], .form-container input[type=file] {
+.form-container input[type=number], .form-container input[type=date], .form-container input[type=file], .form-container input[type=text] {
 	box-sizing: border-box;
     -webkit-box-sizing:border-box;
     -moz-box-sizing: border-box;
@@ -44,7 +44,7 @@
 
 
 /* When the inputs get focus, do something */
-.form-container input[type=number]:focus, .form-container input[type=date]:focus {
+.form-container input[type=number]:focus, .form-container input[type=date]:focus, .form-container input[type=text]:focus {
 	background-color: #ddd;
 	outline: none;
 }

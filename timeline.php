@@ -46,6 +46,9 @@
 				<label for="date"><b>Date</b></label>
 				<input type="date" placeholder="Enter Date" name="date" required>
 				
+				<label for="description"><b>Description</b></label>
+				<input type="text" placeholder="Description..." name="description" maxlength="2000">
+				
 				<label for="importance"><b>Importance (>= 1)</b></label>
 				<input type="number" value="1" min="1" name="importance" required>
 				
@@ -68,7 +71,10 @@
 		
 		
 		<div id="myModal" class="modal">
-			<h1 id="modal-date" align="center"></h1>
+			<h1 id="modal-date" align="center"></h1><br>
+			<div style="display:block;width:50%;margin:0 auto;">
+				<p id="modal-description" align="justify"></p>
+			</div><br>
 			<span class="close cursor" onclick="closeModal()">&times;</span>
 			<div class="modal-content" id="modal-content">
 			</div>

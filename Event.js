@@ -1,6 +1,7 @@
 class Event {
-	constructor(date, importance, imageStr, startDate) {
+	constructor(date, description, importance, imageStr, startDate) {
 		this.date = date;
+		this.description = description;
 		this.importance = importance;
 		this.imageStr = imageStr;
 		
@@ -34,6 +35,9 @@ class Event {
 		
 		var modalDate = document.getElementById("modal-date");
 		modalDate.innerHTML = formatDate(this.date);
+		
+		var modalDesc = document.getElementById("modal-description");
+		modalDesc.innerHTML = this.description;
 		
 		openModal();
 	}

@@ -1,6 +1,7 @@
 <?php
 	$date = $_POST['date'];
 	$vis = $_POST['importance'];
+	$desc = $_POST['description'];
 	
 	$fileNames = array();
 	
@@ -43,9 +44,9 @@
 		die('Connection Failed : ' . $conn->connect_error);
 	} else {
 		echo 'creating row';
-		$stmt = $conn->prepare("INSERT INTO events(date, importance, images)
-			values(?, ?, ?)");
-		$stmt->bind_param("sis", $date, $vis, implode(',', array_filter($fileNames)));
+		$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images)
+			values(?, ?, ?, ?)");
+		$stmt->bind_param("ssis", $date, $desc, $vis, implode(',', array_filter($fileNames)));
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
