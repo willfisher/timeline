@@ -16,12 +16,10 @@
 	</head>
 	<body>
 		<?php
-			$result = $conn->query("SELECT * FROM events;");
+			$result = $conn->query("SELECT * FROM events");
 			$data = array();
-			if($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-					array_push($data, $row);
-				}
+			while($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+				array_push($data, $row);
 			}
 		?>
 		<script type="text/javascript">
