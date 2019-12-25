@@ -1,3 +1,5 @@
+<?php include ('config/db.php')?>
+
 <?php
 	$date = $_POST['date'];
 	$vis = $_POST['importance'];
@@ -32,18 +34,11 @@
 	}
 	
 	// Publish row to SQL database
-	$conn = new mysqli('localhost', 'root', 'root', 'timeline');
-	if($conn->connect_error) {
-		die('Connection Failed : ' . $conn->connect_error);
-	} else {
-		echo 'creating row';
-		$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images, captions)
-			values(?, ?, ?, ?, ?)");
-		$stmt->bind_param("ssiss", $date, $desc, $vis, implode(',', array_filter($fileNames)), implode(',', array_filter($captions)));
-		$stmt->execute();
-		$stmt->close();
-		$conn->close();
-	}
+	$stmt = $conn->prepare("INSERT INTO events(date, description, importance, images, captions)
+		values(?, ?, ?, ?, ?)");
+	$stmt->bind_param("ssiss", $date, $desc, $vis, implode(',', array_filter($fileNames)), implode(',', array_filter($captions)));
+	$stmt->execute();
+	$stmt->close();
 	
 	// Return to homepage
 	header('location:index.php');

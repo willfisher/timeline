@@ -1,3 +1,5 @@
+<?php include ('config/db.php')?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -14,18 +16,12 @@
 	</head>
 	<body>
 		<?php
-			$conn = new mysqli('localhost', 'root', 'root', 'timeline');
-			if($conn->connect_error) {
-				die('Connection Failed : ' . $conn->connect_error);
-			} else {
-				$result = $conn->query("SELECT * FROM events");
-				$data = array();
-				if($result->num_rows > 0) {
-					while($row = $result->fetch_assoc()) {
-						array_push($data, $row);
-					}
+			$result = $conn->query("SELECT * FROM events");
+			$data = array();
+			if($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					array_push($data, $row);
 				}
-				$conn->close();
 			}
 		?>
 		<script type="text/javascript">
