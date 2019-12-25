@@ -1,4 +1,5 @@
 <?php include ('config/db.php')?>
+<?php include ('config/amazon-s3.php')?>
 
 <?php
 	$date = $_POST['date'];
@@ -23,8 +24,13 @@
 		}
 
 		if(empty($errors) == true) {
-			move_uploaded_file($file_tmp, "images/".$file_name);
-			echo "Success";
+			//move_uploaded_file($file_tmp, "images/".$file_name);
+			try {
+				$upload = $s3->upload($bucket, $file_name, fopen($file_tmp, 'rb'), 'public-read');
+			} catch(Exception $e) {
+				echo 'Upload failed: ' . $e->getMessage();
+			}
+			echo 'Upload success';
 		} else {
 			print_r($errors);
 		}

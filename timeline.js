@@ -1,8 +1,9 @@
+const uploadBaseURL = 'https://s3.amazonaws.com/anuschristmas-uploads/';
+
 const padding = 50;
 const dotRadius = 5;
 var maxHeight = window.innerHeight/2 - 50;
 var maxWidth = window.innerWidth/10;
-const IMAGE_PATH = "./images/";
 
 var MAX_SCALE = 1;
 
@@ -244,7 +245,7 @@ function createThumbnail(imageSrc) {
 	img.style.visibility = "hidden";
 	img.id = imageSrc;
 	document.body.appendChild(img);
-	document.getElementById("thumbnail").src = './images/' + imageSrc;
+	document.getElementById("thumbnail").src = uploadBaseURL + imageSrc;
 	var fg = new FrameGrab({
 		video: document.getElementById("thumbnail")
 	});

@@ -9,12 +9,12 @@ class Event {
 		this.position = Math.abs(this.date - startDate)/Math.abs(new Date() - startDate);
 		
 		this.image = new Image();
-		this.image.src = './images/' + this.imageStr.split(',')[0];
+		this.image.src = uploadBaseURL + this.imageStr.split(',')[0];
 	}
 	
 	getImage() {
 		var img = new Image();
-		img.src = './images/' + this.imageStr.split(',')[0];
+		img.src = uploadBaseURL + this.imageStr.split(',')[0];
 		return img;
 	}
 	
@@ -36,16 +36,16 @@ class Event {
 		for(i = 0; i < imageNames.length; i++) {
 			if(imgExtensions.includes(imageNames[i].split('.')[imageNames[i].split('.').length - 1].toLowerCase())) {
 				modal.innerHTML += '<div class="gallery">' + '\n' +
-						'<a target="_blank" href="' + './images/' + imageNames[i] + '">' + '\n' +
-						'<img src="' + './images/' + imageNames[i] + '" alt="Cinque Terre" width="600" height="400">' + '\n' +
+						'<a target="_blank" href="' + uploadBaseURL + imageNames[i] + '">' + '\n' +
+						'<img src="' + uploadBaseURL + imageNames[i] + '" alt="Cinque Terre" width="600" height="400">' + '\n' +
 						'</a>' + '\n' +
 						'<div class="desc">' + imageCaptions[i] + '</div>' + '\n' +
 						'</div>';
 			} else {
 				modal.innerHTML += '<div class="gallery">' + '\n' +
-						'<a target="_blank" href="' + './images/' + imageNames[i] + '">' + '\n' +
+						'<a target="_blank" href="' + uploadBaseURL + imageNames[i] + '">' + '\n' +
 						'<video autoplay loop muted width="600" height="400">' + '\n' +
-						'<source src="' + './images/' + imageNames[i] + '" type="video/mp4">' + '\n' +
+						'<source src="' + uploadBaseURL + imageNames[i] + '" type="video/mp4">' + '\n' +
 						'</video>' + '\n' +
 						'</a>' + '\n' +
 						'<div class="desc">' + imageCaptions[i] + '</div>' + '\n' +
