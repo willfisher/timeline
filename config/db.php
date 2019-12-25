@@ -1,9 +1,9 @@
 <?php
-	$host = "ec2-107-22-224-154.compute-1.amazonaws.com";
-	$user = "bnbjsdoifhumwq";
-	$password = "a86af9b4de2d0137ab6f19b603570d88eaad4c87b95840bff478600f3347a9d0";
-	$dbname = "d1kpssit0ob9i4";
-	$port = "5432";
+	$host = getenv('DATABASE_HOST')?: die('No "DATABASE_HOST" config var in found in env!');
+	$user = getenv('DATABASE_USER')?: die('No "DATABASE_USER" config var in found in env!');
+	$password = getenv('DATABASE_PASSWORD')?: die('No "DATABASE_PASSWORD" config var in found in env!');
+	$dbname = getenv('DATABASE_NAME')?: die('No "DATABASE_NAME" config var in found in env!');
+	$port = getenv('DATABASE_PORT')?: die('No "DATABASE_PORT" config var in found in env!');
 
 	try{
 		//Set DSN data source name
