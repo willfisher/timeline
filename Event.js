@@ -9,12 +9,12 @@ class Event {
 		this.position = Math.abs(this.date - startDate)/Math.abs(new Date() - startDate);
 		
 		this.image = new Image();
-		this.image.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails-') + this.imageStr.split(',')[0];
+		this.image.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails/') + this.imageStr.split(',')[0];
 	}
 	
 	getImage() {
 		var img = new Image();
-		img.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails-') + this.imageStr.split(',')[0];
+		img.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails/') + this.imageStr.split(',')[0];
 		return img;
 	}
 	

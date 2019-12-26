@@ -31,7 +31,7 @@
 				if($i == 1 && !in_array($file_ext, $img_exts)) {
 					$thmb_name = $_FILES['thumbnail']['name'];
 					$thmb_tmp = $_FILES['thumbnail']['tmp_name'];
-					$s3->upload($bucket, 'thumbnail-' + $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
+					$s3->upload($bucket, 'thumbnail/' . $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
 				}
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();
