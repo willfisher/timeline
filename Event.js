@@ -14,7 +14,7 @@ class Event {
 	
 	getImage() {
 		var img = new Image();
-		img.src = uploadBaseURL + this.imageStr.split(',')[0];
+		img.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails/') + this.imageStr.split(',')[0];
 		return img;
 	}
 	

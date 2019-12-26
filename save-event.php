@@ -27,10 +27,10 @@
 			//move_uploaded_file($file_tmp, "images/".$file_name);
 			try {
 				$upload = $s3->upload($bucket, $file_name, fopen($file_tmp, 'rb'), 'public-read');
+				echo 'Upload success';
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();
 			}
-			echo 'Upload success';
 		} else {
 			print_r($errors);
 		}
