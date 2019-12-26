@@ -72,7 +72,8 @@ function draw() {
 			context.fill();
 			context.stroke();
 			
-			var img = item.getImage();
+			var img = new Image();
+			img.src = uploadBaseURL + (item.isImage() ? '' : 'thumbnails/') + item.imageStr.split(',')[0];
 			
 			var imgWidth = img.width;
 			var imgHeight = img.height;
