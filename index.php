@@ -52,8 +52,12 @@
 				
 				<label for="image"><b>Images</b></label>
 				<div id="image-uploads">
-					<input type="file" name="image-1" accept="image/*, video/*" required>
+					<input type="file" name="image-1" id="first" accept="image/*, video/*" onchange="vidCheck(this);" required>
 					<input type="text" name="caption-1" placeholder="Caption..." maxlength="100" required>
+					<label for="image"><b>Thumbnail</b></label>
+					<input type="file" name="thumbnail" id="thumbnail" accept="image/*" hidden>
+					<div id="extra-uploads">
+					</div>
 				</div>
 				
 				<div>
@@ -77,13 +81,20 @@
 			
 			function addUpload() {
 				uploadCount++;
-				document.getElementById("image-uploads").innerHTML += '<input type="file" name="image-' + uploadCount + '" accept="image/*, video/*" required>' + '\n' +
+				document.getElementById("extra-uploads").innerHTML += '<input type="file" name="image-' + uploadCount + '" accept="image/*, video/*" required>' + '\n' +
 					'<input type="text" name="caption-' + uploadCount + '" placeholder="Caption..." maxlength="100" required>';
 			}
 			function resetUploads() {
-				uploadCount = 0;
-				document.getElementById("image-uploads").innerHTML = '';
-				addUpload();
+				uploadCount = 1;
+				document.getElementById("extra-uploads").innerHTML = '';
+			}
+			function vidCheck(name) {
+				var exts = name.value.split('.');
+				var ext = exts[exts.length - 1].toLowerCase();
+				var imgExt = ['png', 'jpg', 'jpeg', 'gif'];
+				
+				document.getElementById("thumbnail").hidden = imgExt.includes(ext);
+				document.getElementById("thumbnail").required = !imgExt.includes(ext);
 			}
 		</script>
 		

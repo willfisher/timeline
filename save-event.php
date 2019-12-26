@@ -9,6 +9,8 @@
 	$fileNames = array();
 	$captions = array();
 	
+	$img_exts = array('png', 'jpg', 'jpeg', 'gif');
+	
 	// Upload images
 	for($i=1; isset($_FILES['image-'.$i]); $i++) {
 		$errors= array();
@@ -24,9 +26,13 @@
 		}
 
 		if(empty($errors) == true) {
-			//move_uploaded_file($file_tmp, "images/".$file_name);
 			try {
-				$upload = $s3->upload($bucket, $file_name, fopen($file_tmp, 'rb'), 'public-read');
+				$s3->upload($bucket, $file_name, fopen($file_tmp, 'rb'), 'public-read');
+				if($i == 1 && !in_array($file_ext, $img_exts)) {
+					$thmb_name = $_FILES['thumbnail']['name'];
+					$thmb_tmp = $_FILES['thumbnail']['tmp_name'];
+					$s3->upload($bucket, 'thumbnails/' + $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
+				}
 				echo 'Upload success';
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();

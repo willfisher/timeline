@@ -217,25 +217,3 @@ function updateDate() {
 	document.getElementById("currDate").innerHTML = dateStr;
 }
 updateDate();
-
-/*
-function createThumbnail(imageSrc) {
-	var img = document.createElement("img");
-	img.style.visibility = "hidden";
-	img.id = imageSrc;
-	document.body.appendChild(img);
-	document.getElementById("thumbnail").src = uploadBaseURL + imageSrc;
-	var fg = new FrameGrab({
-		video: document.getElementById("thumbnail")
-	});
-	fg.grab(img, 0).then(
-		function success(img) {
-			console.log("Frame rendered successfully!");
-			alert("rendered successfully");
-		},
-		function failure(reason) {
-			console.error("Problem rendering frame! " + reason);
-			alert("Problem rendering frame! " + reason);
-		}
-	);
-}*/

@@ -14,10 +14,7 @@ class Event {
 	
 	getImage() {
 		var img = new Image();
-		if(this.isImage())
-			img.src = uploadBaseURL + this.imageStr.split(',')[0];
-		else
-			img.src = 'https://pbs.twimg.com/profile_images/1186876544263872512/MA8AZsIV_400x400.jpg';
+		img.src = uploadBaseURL + (this.isImage() ? '' : 'thumbnails/') + this.imageStr.split(',')[0];
 		return img;
 	}
 	
