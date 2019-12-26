@@ -252,9 +252,11 @@ function createThumbnail(imageSrc) {
 	fg.grab(img, 0).then(
 		function success(img) {
 			console.log("Frame rendered successfully!");
+			alert("rendered successfully");
 		},
 		function failure(reason) {
 			console.error("Problem rendering frame! " + reason);
+			alert("Problem rendering frame! " + reason);
 		}
 	);
 }
