@@ -33,7 +33,6 @@
 					$thmb_tmp = $_FILES['thumbnail']['tmp_name'];
 					$s3->upload($bucket, 'thumbnails/' + $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
 				}
-				echo 'Upload success';
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();
 			}

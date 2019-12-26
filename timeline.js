@@ -74,7 +74,6 @@ function draw() {
 			
 			var img = item.image;
 	
-			//img.onload = function() {
 			var imgWidth = img.width;
 			var imgHeight = img.height;
 			
@@ -82,7 +81,6 @@ function draw() {
 			imgWidth *= imgScale;
 			imgHeight *= imgScale;
 			context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
-			//}
 		}
 	});
 }

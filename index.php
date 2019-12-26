@@ -54,7 +54,7 @@
 				<div id="image-uploads">
 					<input type="file" name="image-1" id="first" accept="image/*, video/*" onchange="vidCheck(this);" required>
 					<input type="text" name="caption-1" placeholder="Caption..." maxlength="100" required>
-					<label for="image"><b>Thumbnail</b></label>
+					<label for="image" id="thumbnail-label" hidden><b>Thumbnail</b></label>
 					<input type="file" name="thumbnail" id="thumbnail" accept="image/*" hidden>
 					<div id="extra-uploads">
 					</div>
@@ -93,6 +93,7 @@
 				var ext = exts[exts.length - 1].toLowerCase();
 				var imgExt = ['png', 'jpg', 'jpeg', 'gif'];
 				
+				document.getElementById("thumbnail-label").hidden = imgExt.includes(ext);
 				document.getElementById("thumbnail").hidden = imgExt.includes(ext);
 				document.getElementById("thumbnail").required = !imgExt.includes(ext);
 			}
