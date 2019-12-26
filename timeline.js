@@ -72,20 +72,22 @@ function draw() {
 			context.fill();
 			context.stroke();
 			
-			var img = item.getImage();
-			
-			img.onload = function() {
-				var imgWidth = img.width;
-				var imgHeight = img.height;
-				var imgHeight = img.clientHeight;
-				
-				var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
-				imgWidth *= imgScale;
-				imgHeight *= imgScale;
-				context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
-			}
+			drawImage(item);
 		}
 	});
+}
+function drawImage(item) {
+	var img = item.image;
+	
+	//img.onload = function() {
+	var imgWidth = img.width;
+	var imgHeight = img.height;
+	
+	var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
+	imgWidth *= imgScale;
+	imgHeight *= imgScale;
+	context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
+	//}
 }
 // Draw loop at 60FPS.
 setInterval(draw, 1000/60);
