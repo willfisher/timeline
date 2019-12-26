@@ -241,7 +241,8 @@ function updateDate() {
 updateDate();
 
 function createThumbnail(imageSrc) {
-	var img = document.createElement("IMG");
+	alert("creating thumbnail");
+	var img = document.createElement("img");
 	img.style.visibility = "hidden";
 	img.id = imageSrc;
 	document.body.appendChild(img);
