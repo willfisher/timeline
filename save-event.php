@@ -1,6 +1,7 @@
-<?php include ('config/db.php')?>
-<?php include ('config/amazon-s3.php')?>
 <?php
+	include ('config/db.php')
+	include ('config/amazon-s3.php')
+	
 	$date = $_POST['date'];
 	$vis = $_POST['importance'];
 	$desc = $_POST['description'];
@@ -28,9 +29,8 @@
 			try {
 				$s3->upload($bucket, $file_name, fopen($file_tmp, 'rb'), 'public-read');
 				if($i == 1 && !in_array($file_ext, $img_exts)) {
-					$thmb_name = $_FILES['thumbnail']['name'];
 					$thmb_tmp = $_FILES['thumbnail']['tmp_name'];
-					$s3->upload($bucket, 'thumbnails/' . $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
+					$s3->upload($bucket, 'thumbnails/' . $file_name, fopen($thmb_tmp, 'rb'), 'public-read');
 				}
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();
