@@ -81,7 +81,9 @@ function draw() {
 			var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
 			imgWidth *= imgScale;
 			imgHeight *= imgScale;
-			context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
+			img.onload = function() {
+				context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
+			}
 		}
 	});
 }
