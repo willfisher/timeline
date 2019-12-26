@@ -1,6 +1,5 @@
 <?php include ('config/db.php')?>
 <?php include ('config/amazon-s3.php')?>
-
 <?php
 	$date = $_POST['date'];
 	$vis = $_POST['importance'];
@@ -31,7 +30,7 @@
 				if($i == 1 && !in_array($file_ext, $img_exts)) {
 					$thmb_name = $_FILES['thumbnail']['name'];
 					$thmb_tmp = $_FILES['thumbnail']['tmp_name'];
-					$s3->upload($bucket, 'thumbnail/' . $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
+					$s3->upload($bucket, 'thumbnails/' . $thmb_name, fopen($thmb_tmp, 'rb'), 'public-read');
 				}
 			} catch(Exception $e) {
 				echo 'Upload failed: ' . $e->getMessage();
@@ -56,5 +55,5 @@
 	$stmt->close();
 	
 	// Return to homepage
-	header('location:https://polar-falls-65862.herokuapp.com/');
+	header('location:index.php');
 ?>
