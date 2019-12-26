@@ -72,7 +72,7 @@ function draw() {
 			context.fill();
 			context.stroke();
 			
-			var img = item.image;
+			var img = item.getImage();
 			
 			img.onload = function() {
 				var imgWidth = img.width;
