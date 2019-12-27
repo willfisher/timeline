@@ -7,7 +7,7 @@ var maxWidth = window.innerWidth/10;
 
 var MAX_SCALE = 1;
 
-const startDate = new Date("12/28/2017");
+const startDate = new Date("12/24/2017");
 var today = new Date();
 
 var zoomIntensity = 0.1;
