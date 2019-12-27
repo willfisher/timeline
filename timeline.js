@@ -42,16 +42,18 @@ handleData();
 
 function handleData() {
 	data.forEach(function (item, index) {
-		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
-		
 		var parts = item.date.split('-');
 		var date = new Date(parts[0], parts[1] - 1, parts[2]);
-		nodes.push(new Event(date, item.description, Number(item.importance), item.images, item.captions, startDate));
 		if(date.getTime() <= startDate.getTime())
 			startDate = new Date(date.getTime());
 	});
+	data.forEach(function (item, index) {
+		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
+		
+		var parts = item.date.split('-');
+		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
+	});
 	nodes.sort(function(a, b) { return a-b; });
-	alert(startDate);
 }
 
 
