@@ -7,7 +7,7 @@ var maxWidth = window.innerWidth/10;
 
 var MAX_SCALE = 1;
 
-const startDate = new Date("12/24/2017");
+const startDate = new Date();
 var today = new Date();
 
 var zoomIntensity = 0.1;
@@ -45,7 +45,10 @@ function handleData() {
 		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
 		
 		var parts = item.date.split('-');
-		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
+		var date = new Date(parts[0], parts[1] - 1, parts[2]);
+		nodes.push(new Event(date, item.description, Number(item.importance), item.images, item.captions, startDate));
+		if(date - startDate < 0)
+			startDate = date;
 	});
 	nodes.sort(function(a, b) { return a-b; });
 }
