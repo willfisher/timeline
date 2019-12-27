@@ -55,6 +55,6 @@
 	$stmt->close();
 	
 	// Return to homepage
-	header('location:index.php');
-	exit;
+	//header('location:index.php');
+	//exit;
 ?>
