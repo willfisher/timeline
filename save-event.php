@@ -1,6 +1,6 @@
 <?php
-	include ('config/db.php');
-	include ('config/amazon-s3.php');
+	include('config/db.php');
+	include('config/amazon-s3.php');
 	
 	$date = $_POST['date'];
 	$vis = $_POST['importance'];
@@ -55,5 +55,5 @@
 	$stmt->close();
 	
 	// Return to homepage
-	header('location:index.php');
+	header('location:' . getenv('BASE_URL'));
 ?>
