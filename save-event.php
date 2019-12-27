@@ -52,9 +52,9 @@
 	$stmt->bindValue(':images', implode(',', array_filter($fileNames)));
 	$stmt->bindValue(':captions', implode(',', array_filter($captions)));
 	$stmt->execute();
-	$stmt->close();
+	//$stmt->close();
 	
 	// Return to homepage
-	//header('location:index.php');
-	//exit;
+	header('location:index.php');
+	exit;
 ?>
