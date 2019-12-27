@@ -45,12 +45,10 @@ function handleData() {
 		MAX_SCALE = Math.max(MAX_SCALE, item.importance);
 		
 		var parts = item.date.split('-');
-		var date = new Date(parts[0], parts[1] - 1, parts[2]);
-		nodes.push(new Event(date, item.description, Number(item.importance), item.images, item.captions, startDate));
-		if(date - startDate < 0)
-			startDate = date;
+		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
 	});
 	nodes.sort(function(a, b) { return a-b; });
+	startDate = nodes[0].date;
 }
 
 
