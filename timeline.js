@@ -47,7 +47,7 @@ function handleData() {
 		var parts = item.date.split('-');
 		var date = new Date(parts[0], parts[1] - 1, parts[2]);
 		nodes.push(new Event(date, item.description, Number(item.importance), item.images, item.captions, startDate));
-		if(date - startDate < 0)
+		if(date.getTime() < startDate.getTime())
 			startDate = date;
 	});
 	nodes.sort(function(a, b) { return a-b; });
