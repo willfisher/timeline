@@ -55,5 +55,6 @@
 	$stmt->close();
 	
 	// Return to homepage
-	header('location:' . getenv('BASE_URL'));
+	header('location:index.php');
+	exit;
 ?>
