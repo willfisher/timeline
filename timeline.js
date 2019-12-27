@@ -47,6 +47,7 @@ function handleData() {
 		var parts = item.date.split('-');
 		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
 	});
+	nodes.sort(function(a, b) { return a-b; });
 }
 
 
@@ -80,7 +81,7 @@ function draw() {
 			var imgScale = Math.min(maxHeight/imgHeight, maxWidth/imgWidth) * Math.min(1, scale/item.importance) / scale;
 			imgWidth *= imgScale;
 			imgHeight *= imgScale;
-			context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - 20/scale - imgHeight, imgWidth, imgHeight);
+			context.drawImage(img, abspos - imgWidth/2, canvas.height/2 - (index % 2 == 0 ? 20/scale + imgHeight : -20/scale), imgWidth, imgHeight);
 		}
 	});
 }
@@ -106,7 +107,7 @@ canvas.onclick = function(event) {
 		
 		if(isInside(mousePos, {
 			x: abspos - imgWidth/2,
-			y: canvas.height/2 - 20/scale - imgHeight,
+			y: canvas.height/2 - (index % 2 == 0 ? 20/scale + imgHeight : -20/scale),
 			width: imgWidth,
 			height: imgHeight
 		})) {
