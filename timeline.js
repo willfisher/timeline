@@ -51,6 +51,7 @@ function handleData() {
 			startDate = new Date(date.getTime());
 	});
 	nodes.sort(function(a, b) { return a-b; });
+	alert(startDate);
 }
 
 
