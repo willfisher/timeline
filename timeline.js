@@ -7,7 +7,7 @@ var maxWidth = window.innerWidth/10;
 
 var MAX_SCALE = 1;
 
-const startDate = new Date();
+var startDate = new Date();
 var today = new Date();
 
 var zoomIntensity = 0.1;
@@ -47,7 +47,7 @@ function handleData() {
 		var parts = item.date.split('-');
 		var date = new Date(parts[0], parts[1] - 1, parts[2]);
 		nodes.push(new Event(date, item.description, Number(item.importance), item.images, item.captions, startDate));
-		if(date.getTime() < startDate.getTime())
+		if(date - startDate < 0)
 			startDate = date;
 	});
 	nodes.sort(function(a, b) { return a-b; });
