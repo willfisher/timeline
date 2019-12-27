@@ -21,8 +21,8 @@
 		$file_type = $_FILES['image-'.$i]['type'];
 		$file_ext = strtolower(end(explode('.', $_FILES['image-'.$i]['name'])));
 
-		if($file_size > 2097152) {
-			$errors[] = 'File size must be under 2 MB';
+		if($file_size > 5*2097152) {
+			$errors[] = 'File size must be under 10 MB';
 		}
 
 		if(empty($errors) == true) {
