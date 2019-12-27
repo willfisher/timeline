@@ -48,7 +48,7 @@ function handleData() {
 		nodes.push(new Event(new Date(parts[0], parts[1] - 1, parts[2]), item.description, Number(item.importance), item.images, item.captions, startDate));
 	});
 	nodes.sort(function(a, b) { return a-b; });
-	startDate = nodes[0].date;
+	startDate = nodes[nodes.length - 1].date;
 }
 
 
